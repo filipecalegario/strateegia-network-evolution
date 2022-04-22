@@ -53,10 +53,10 @@ export default function Signin() {
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}
     >
-      <ColorModeSwitcher />
+      {/* <ColorModeSwitcher /> */}
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'2xl'}>Network Evolution</Heading>
+          <Heading fontSize={'2xl'}>journey metaverse</Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
             entre com seu login de strateegia
           </Text>

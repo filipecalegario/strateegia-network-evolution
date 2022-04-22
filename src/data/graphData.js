@@ -16,12 +16,14 @@ export async function gatherGraphData(accessToken, projectId) {
   function mapColorAndSize(group) {
     const groups = ["project", "map", "divpoint", "question", "comment", "reply", "agreement", "user", "users"];
     const colors = ["#023a78", "#0b522e", "#ff8000", "#974da2", "#e51d1d", "#377eb8", "#4eaf49", "#636c77", "#b2b7bd"];
+    // const sizes = [10, 9, 8, 7, 6, 4, 3, 7, 9];
+    const sizes = [100, 50, 8, 7, 6, 4, 3, 7, 9];
     const color = d3.scaleOrdinal()
       .domain(groups)
       .range(colors);
     const size = d3.scaleOrdinal()
       .domain(groups)
-      .range([10, 9, 8, 7, 6, 4, 3, 7, 9]);
+      .range(sizes);
     return { color: color(group), size: size(group) };
   }
 
