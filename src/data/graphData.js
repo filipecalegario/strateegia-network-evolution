@@ -1,4 +1,6 @@
 import * as api from 'strateegia-api';
+import * as d3 from 'd3';
+import { color } from 'd3';
 
 export async function gatherGraphData(accessToken, projectId) {
 
@@ -11,14 +13,29 @@ export async function gatherGraphData(accessToken, projectId) {
 
   const filters = {};
 
+  function mapColorAndSize(group) {
+    const groups = ["project", "map", "divpoint", "question", "comment", "reply", "agreement", "user", "users"];
+    const colors = ["#023a78", "#0b522e", "#ff8000", "#974da2", "#e51d1d", "#377eb8", "#4eaf49", "#636c77", "#b2b7bd"];
+    const color = d3.scaleOrdinal()
+      .domain(groups)
+      .range(colors);
+    const size = d3.scaleOrdinal()
+      .domain(groups)
+      .range([10, 9, 8, 7, 6, 4, 3, 7, 9]);
+    return { color: color(group), size: size(group) };
+  }
+
   function addNode(id, title, group, createdAt, dashboardUrl) {
     const date = new Date(createdAt)
+    const configs = mapColorAndSize(group);
     cData.nodes.push({
       "id": id,
       "title": title,
       "group": group,
       "createdAt": date,
-      "dashboardUrl": dashboardUrl
+      "dashboardUrl": dashboardUrl,
+      "color": configs.color,
+      "size": configs.size
     });
   }
 

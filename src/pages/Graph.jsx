@@ -1,6 +1,7 @@
 import { gatherGraphData } from '../data/graphData';
 import { useEffect, useState } from 'react';
-import { ForceGraph3D } from 'react-force-graph';
+import { ForceGraph3D, ForceGraph2D } from 'react-force-graph';
+import { gatherMockupGraphData } from '../data/mockupGraphData';
 
 export default function Graph() {
   const [nodes, setNodes] = useState([]);
@@ -12,13 +13,17 @@ export default function Graph() {
       const projectId = '601a83d4cf364315a4cb9814';
       const accessToken = localStorage.getItem('accessToken');
       const graphData = await gatherGraphData(accessToken, projectId);
-      console.log('graphData');
-      console.log(graphData);
       setGraphData(graphData);
       setNodes([...graphData.nodes]);
       setLinks([...graphData.links]);
     };
     fetchData();
+    // const graphData = gatherMockupGraphData();
+    // setGraphData(graphData);
+    // setNodes([...graphData.nodes]);
+    // setLinks([...graphData.links]);
+    // console.log('graphData');
+    // console.log(graphData);
   }, []);
 
   return (
@@ -28,11 +33,15 @@ export default function Graph() {
     //   <p>{links.length}</p>
     //   <pre>{JSON.stringify(graphData, null, 2)}</pre>
     // </div>
-    <ForceGraph3D
+    <ForceGraph2D
       graphData={{ nodes, links }}
-      nodeAutoColorBy="group"
+      nodeColor="color"
       nodeLabel="title"
+      nodeVal="size"
+      nodeId="id"
       nodeOpacity={1}
+      nodeResolution={10}
+      dagMode={'radialout'}
     />
   );
 }
