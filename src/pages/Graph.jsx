@@ -1,9 +1,11 @@
 import { gatherGraphData } from '../data/graphData';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { ForceGraph3D, ForceGraph2D } from 'react-force-graph';
 import { gatherMockupGraphData } from '../data/mockupGraphData';
 
 export default function Graph() {
+  const graphRef = useRef();
+
   const [nodes, setNodes] = useState([]);
   const [links, setLinks] = useState([]);
   const [graphData, setGraphData] = useState({});
@@ -33,7 +35,8 @@ export default function Graph() {
     //   <p>{links.length}</p>
     //   <pre>{JSON.stringify(graphData, null, 2)}</pre>
     // </div>
-    <ForceGraph2D
+    <ForceGraph3D
+      ref={graphRef}
       graphData={{ nodes, links }}
       nodeColor="color"
       nodeLabel="title"
@@ -41,7 +44,8 @@ export default function Graph() {
       nodeId="id"
       nodeOpacity={1}
       nodeResolution={10}
-      dagMode={'radialout'}
+      // dagMode={'radialout'}
+      // onEngineStop={() => graphRef.current.zoomToFit(400)}
     />
   );
 }
